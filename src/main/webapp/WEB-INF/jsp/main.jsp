@@ -107,7 +107,18 @@
 <script>
 	function collectFunction(postId,userId) {
 		$.ajax({
-			url:''
+			url:'/user/collectPost',
+			data:{
+			    userId : userId,
+				postId:postId,
+				collectStatus:true
+			},
+			dataType:"JSON",
+            type: "POST",
+			success:function (data) {
+			    console.log(data);
+			    alert(data);
+            }
 		});
 	    <%--var collectStatus = ${postInfo.collectStatus};//获取--%>
 	    // if (collectStatus==0){

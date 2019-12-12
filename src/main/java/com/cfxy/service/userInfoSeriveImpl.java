@@ -1,6 +1,7 @@
 package com.cfxy.service;
 
 import com.cfxy.dao.userInfoDao;
+import com.cfxy.pojo.collectInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import org.omg.PortableInterceptor.INACTIVE;
@@ -70,6 +71,18 @@ public class userInfoSeriveImpl implements userInfoService{
 
     public List<postInfo> queryTop8() {
         return userInfoDao.queryTop8();
+    }
+
+    public int collectPost(Integer userId, Integer postId, Boolean collectStatus) {
+        return userInfoDao.collectPost(userId,postId,collectStatus);
+    }
+
+    public collectInfo judgePost(Integer userId, Integer postId) {
+        return userInfoDao.judgePost(userId,postId);
+    }
+
+    public int updateCollectStatus(Integer userId, Integer postId, Boolean collectStatus) {
+        return userInfoDao.updateCollectStatus(userId,postId,collectStatus);
     }
 
 

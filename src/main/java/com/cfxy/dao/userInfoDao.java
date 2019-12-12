@@ -1,5 +1,6 @@
 package com.cfxy.dao;
 
+import com.cfxy.pojo.collectInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,11 @@ public interface userInfoDao {
     int delPostInfo(@Param("id")Integer id);
     //查询喜欢数前8的帖子
     List<postInfo> queryTop8();
+    //收藏帖子
+    int collectPost(@Param("userId")Integer userId,@Param("postId")Integer postId,@Param("collectStatus")Boolean collectStatus);
+    //判断用户是否收藏过该帖子
+    collectInfo judgePost(@Param("userId")Integer userId,@Param("postId")Integer postId);
+    //更新帖子收藏状态
+    int updateCollectStatus(@Param("userId")Integer userId,@Param("postId")Integer postId,@Param("collectStatus")Boolean collectStatus);
+    //如果用户收藏过该帖子
 }

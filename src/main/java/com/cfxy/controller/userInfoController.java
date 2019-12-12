@@ -1,6 +1,7 @@
 package com.cfxy.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cfxy.pojo.collectInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import com.cfxy.service.userInfoService;
@@ -192,6 +193,22 @@ public class userInfoController {
         return "main";
     }
     //帖子收藏功能实现
+    @RequestMapping(value = "collectPost" ,method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String collectPost(Integer userId,Integer postId,Boolean collectStatus){
+        collectInfo collectInfo = userInfoService.judgePost(userId, postId);
+        System.out.println(collectInfo);
+        if (collectInfo!=null){
+//            userInfoService.updateCollectStatus(userId,postId,false);
+            String message = "您收藏过该帖子,请勿重复操作";
+            return JSON.toJSONString(message);
+        }else{
+            int i = userInfoService.collectPost(userId, postId, collectStatus);
+            collectInfo = userInfoService.judgePost(userId, postId);
+        }
+        return JSON.toJSONString(collectInfo);
+
+    }
 }
 
 

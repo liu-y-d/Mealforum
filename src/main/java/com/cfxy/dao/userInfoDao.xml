@@ -29,6 +29,7 @@
     <insert id="addPostInfo">
 	    INSERT INTO  postinfo  VALUES  (null,#{title},#{htmlContent},#{markdownContent},#{createUserId})
 	</insert>
+
     <!--查询帖子信息-->
     <select id="queryPostInfo" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo where createUserId = #{createUserId}
@@ -41,6 +42,7 @@
     <update id="editPostInfo" parameterType="com.cfxy.pojo.postInfo">
         update postinfo set title=#{title},htmlContent=#{htmlContent},markdownContent=#{markdownContent} where id=#{id}
     </update>
+
     <!--删除帖子信息-->
     <delete id="delPostInfo" parameterType="Integer">
         delete from postinfo where id=#{id}
@@ -49,4 +51,16 @@
     <select id="queryTop8" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo order by likeNumber desc limit 8
     </select>
+    <insert id="collectPost">
+        insert into collectInfo (userId,postId,collectStatus)values (#{userId},#{postId},#{collectStatus})
+    </insert>
+    <!--根据用户id和帖子id判断用户是否收藏过该帖子-->
+    <select id="judgePost" resultType="com.cfxy.pojo.collectInfo" parameterType="Integer">
+        select * from collectinfo where userId=#{userId} and postId=#{postId}
+    </select>
+    <!---->
+    <!--更新帖子状态-->
+<!--    <update id="updateCollectStatus" >-->
+<!--        update collectinfo set collectStatus=#{collectStatus} where userId=#{userId} and postId=#{postId}-->
+<!--    </update>-->
 </mapper>
