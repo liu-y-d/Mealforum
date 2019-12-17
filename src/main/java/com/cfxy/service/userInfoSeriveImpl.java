@@ -14,6 +14,7 @@ import java.util.List;
  * @author LiuYunDa
  * @date 2019/8/8 - 11:26
  */
+
 @Service
 public class userInfoSeriveImpl implements userInfoService{
     @Resource
@@ -46,9 +47,9 @@ public class userInfoSeriveImpl implements userInfoService{
         return userInfo;
     }
 
-    public int addPostInfo(Integer createUserId, String title, String htmlContent, String markdownContent) {
+    public int addPostInfo( String title, String htmlContent, String markdownContent,Integer createUserId) {
 
-        return userInfoDao.addPostInfo(createUserId,title,htmlContent,markdownContent);
+        return userInfoDao.addPostInfo(title,htmlContent,markdownContent,createUserId);
 
     }
 
@@ -81,9 +82,18 @@ public class userInfoSeriveImpl implements userInfoService{
         return userInfoDao.judgePost(userId,postId);
     }
 
-    public int updateCollectStatus(Integer userId, Integer postId, Boolean collectStatus) {
-        return userInfoDao.updateCollectStatus(userId,postId,collectStatus);
+    public List<postInfo> queryCollectInfo(Integer userId) {
+        return userInfoDao.queryCollectInfo(userId);
     }
+
+    public int delCollectInfo(Integer userId, Integer postId) {
+        return userInfoDao.delCollectInfo(userId,postId);
+    }
+
+    // public int updateCollectStatus(Integer userId, Integer postId, Boolean collectStatus) {
+    //     return userInfoDao.updateCollectStatus(userId,postId,collectStatus);
+    //
+    // }
 
 
 }

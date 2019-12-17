@@ -143,7 +143,7 @@ public class userInfoController {
     @RequestMapping(value = "post",method = RequestMethod.POST)
     @ResponseBody
     public postInfo articleContent(@RequestBody postInfo postInfo){
-        userInfoService.addPostInfo(postInfo.getCreateUserId(),postInfo.getTitle(),postInfo.getHtmlContent(),postInfo.getMarkdownContent());
+        userInfoService.addPostInfo(postInfo.getTitle(),postInfo.getHtmlContent(),postInfo.getMarkdownContent(),postInfo.getCreateUserId());
         return postInfo;
     }
     //跳转到显示帖子页面
@@ -197,17 +197,31 @@ public class userInfoController {
     @ResponseBody
     public String collectPost(Integer userId,Integer postId,Boolean collectStatus){
         collectInfo collectInfo = userInfoService.judgePost(userId, postId);
-        System.out.println(collectInfo);
+        String message;
         if (collectInfo!=null){
 //            userInfoService.updateCollectStatus(userId,postId,false);
-            String message = "您收藏过该帖子,请勿重复操作";
+            message = "您收藏过该帖子,请勿重复操作";
             return JSON.toJSONString(message);
         }else{
             int i = userInfoService.collectPost(userId, postId, collectStatus);
-            collectInfo = userInfoService.judgePost(userId, postId);
+            userInfoService.judgePost(userId, postId);
+            message = "收藏成功！";
         }
-        return JSON.toJSONString(collectInfo);
+        return JSON.toJSONString(message);
 
+    }
+    //跳转到我的收藏页面
+    @RequestMapping("toMyCollectPage")
+    public String toMyCollectPage(Integer userId,Model model){
+        List<postInfo> postInfos = userInfoService.queryCollectInfo(userId);
+        model.addAttribute("postInfos",postInfos);
+        return "post/myCollectPage";
+    }
+    //删除用户收藏信息
+    @RequestMapping(value = "delCollectInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public void delCollectInfo(Integer postId,Integer userId){
+        userInfoService.delCollectInfo(userId,postId);
     }
 }
 
