@@ -90,6 +90,14 @@ public class userInfoSeriveImpl implements userInfoService{
         return userInfoDao.delCollectInfo(userId,postId);
     }
 
+    public String queryUserNameByCreateUserId(Integer createUserId) {
+        return userInfoDao.queryUserNameByCreateUserId(createUserId);
+    }
+
+    public List<postInfo> FuzzyQueryPostInfo(String title) {
+        return userInfoDao.FuzzyQueryPostInfo(title);
+    }
+
     // public int updateCollectStatus(Integer userId, Integer postId, Boolean collectStatus) {
     //     return userInfoDao.updateCollectStatus(userId,postId,collectStatus);
     //

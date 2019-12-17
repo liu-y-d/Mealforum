@@ -69,6 +69,16 @@
     <delete id="delCollectInfo">
         delete from collectInfo where userId = #{userId} and postId = #{postId}
     </delete>
+
+    <!--根据创建帖子的createUserId查询作者名-->
+    <select id="queryUserNameByCreateUserId" resultType="java.lang.String">
+        select userName from userinfo where id=#{createUserId}
+    </select>
+    <!--帖子模糊查询-->
+    <select id="FuzzyQueryPostInfo" resultType="com.cfxy.pojo.postInfo">
+        select * from postinfo where title like '%${title}%'
+    </select>
+
     <!--更新帖子状态-->
     <!--<update id="updateCollectStatus" >-->
     <!--    update collectinfo set collectStatus=#{collectStatus} where userId=#{userId} and postId=#{postId}-->

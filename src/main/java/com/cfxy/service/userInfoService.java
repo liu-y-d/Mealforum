@@ -55,4 +55,10 @@ public interface userInfoService {
 	int delCollectInfo(@Param("userId")Integer userId ,@Param("postId")Integer postId);
 	//更新帖子收藏状态
 	// int updateCollectStatus(@Param("userId") Integer userId, @Param("postId") Integer postId, @Param("collectStatus") Boolean collectStatus);
+
+	//根据创建帖子的createUserId查询作者名
+	String queryUserNameByCreateUserId(@Param("createUserId")Integer createUserId);
+
+	//帖子模糊查询
+	List<postInfo> FuzzyQueryPostInfo(@Param("title")String title);
 }

@@ -32,9 +32,9 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left">
+			<form class="navbar-form navbar-left" action="/user/FuzzyQueryPostInfo" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" class="form-control" name="title" placeholder="输入帖子标题"/>
 				</div>
 				<button type="submit" class="btn btn-default">确定</button>
 			</form>

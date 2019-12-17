@@ -68,6 +68,7 @@
 	<div class="panel-heading">
 		<div class="panel-title">
 			<h3 class="" >标题：${postInfo.title}</h3>
+			<h3 class="" >作者：${userName}</h3>
 		</div>
 	</div>
 	<div class="panel-body">

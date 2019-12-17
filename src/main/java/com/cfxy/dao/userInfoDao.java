@@ -55,6 +55,11 @@ public interface userInfoDao {
 	//根据用户id对收藏信息表进行查询
 	List<postInfo> queryCollectInfo(@Param("userId") Integer userId);
 
+	//根据创建帖子的createUserId查询作者名
+	String queryUserNameByCreateUserId(@Param("createUserId")Integer createUserId);
 	//根据userId和postId删除对应的收藏信息
 	int delCollectInfo(@Param("userId")Integer userId ,@Param("postId")Integer postId);
+
+	//帖子模糊查询
+	List<postInfo> FuzzyQueryPostInfo(@Param("title")String title);
 }
