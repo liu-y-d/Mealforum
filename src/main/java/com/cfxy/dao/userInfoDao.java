@@ -49,9 +49,6 @@ public interface userInfoDao {
 
 	//判断用户是否收藏过该帖子
 	collectInfo judgePost(@Param("userId") Integer userId, @Param("postId") Integer postId);
-
-	//更新帖子收藏状态
-	//int updateCollectStatus(@Param("userId")Integer userId,@Param("postId")Integer postId,@Param("collectStatus")Boolean collectStatus);
 	//根据用户id对收藏信息表进行查询
 	List<postInfo> queryCollectInfo(@Param("userId") Integer userId);
 
@@ -62,4 +59,22 @@ public interface userInfoDao {
 
 	//帖子模糊查询
 	List<postInfo> FuzzyQueryPostInfo(@Param("title")String title);
+	//点赞帖子
+	int likePost(@Param("userId")Integer userId ,@Param("postId")Integer postId,@Param("likeStatus")Boolean likeStatus);
+	//加载点赞状态
+	Boolean loadLikeStatus(@Param("userId")Integer userId ,@Param("postId")Integer postId);
+	//根据userId和postId删除对应的点赞信息
+	int delLikeInfo(@Param("userId")Integer userId ,@Param("postId")Integer postId);
+	//帖子收藏数加一
+	int updatePostCollectNumberAddOne(@Param("id")Integer id);
+	//帖子收藏数减一
+	int updatePostCollectNumberMinOne(@Param("id")Integer id);
+	//帖子点赞数加一
+	int updatePostLikeNumberAddOne(@Param("id")Integer id);
+	//帖子点赞数减一
+	int updatePostLikeNumberMinOne(@Param("id")Integer id);
+
+
+
+
 }

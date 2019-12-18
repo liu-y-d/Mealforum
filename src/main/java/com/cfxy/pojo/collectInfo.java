@@ -9,7 +9,6 @@ public class collectInfo {
     private Integer postId;
     private Integer userId;
     private Boolean collectStatus;//收藏状态
-    private Boolean likeStatus;//喜欢状态
 
     @Override
     public String toString() {
@@ -17,7 +16,6 @@ public class collectInfo {
                 "postId=" + postId +
                 ", userId=" + userId +
                 ", collectStatus=" + collectStatus +
-                ", likeStatus=" + likeStatus +
                 '}';
     }
 
@@ -43,13 +41,5 @@ public class collectInfo {
 
     public void setCollectStatus(Boolean collectStatus) {
         this.collectStatus = collectStatus;
-    }
-
-    public Boolean getLikeStatus() {
-        return likeStatus;
-    }
-
-    public void setLikeStatus(Boolean likeStatus) {
-        this.likeStatus = likeStatus;
     }
 }

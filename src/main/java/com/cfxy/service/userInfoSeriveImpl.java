@@ -98,10 +98,34 @@ public class userInfoSeriveImpl implements userInfoService{
         return userInfoDao.FuzzyQueryPostInfo(title);
     }
 
-    // public int updateCollectStatus(Integer userId, Integer postId, Boolean collectStatus) {
-    //     return userInfoDao.updateCollectStatus(userId,postId,collectStatus);
-    //
-    // }
+    public Boolean loadLikeStatus(Integer userId, Integer postId) {
+        return userInfoDao.loadLikeStatus(userId,postId);
+    }
+
+    public int likePost(Integer userId, Integer postId, Boolean likeStatus) {
+        return userInfoDao.likePost(userId,postId,likeStatus);
+    }
+
+    public int delLikeInfo(Integer userId, Integer postId) {
+        return userInfoDao.delLikeInfo(userId,postId);
+    }
+
+    public int updatePostCollectNumberAddOne(Integer id) {
+        return userInfoDao.updatePostCollectNumberAddOne(id);
+    }
+
+    public int updatePostCollectNumberMinOne(Integer id) {
+        return userInfoDao.updatePostCollectNumberMinOne(id);
+    }
+
+    public int updatePostLikeNumberAddOne(Integer id) {
+        return userInfoDao.updatePostLikeNumberAddOne(id);
+    }
+
+    public int updatePostLikeNumberMinOne(Integer id) {
+        return userInfoDao.updatePostLikeNumberMinOne(id);
+
+    }
 
 
 }

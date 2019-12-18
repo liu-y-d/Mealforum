@@ -1,86 +1,114 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cfxy.dao.userInfoDao">
-    <!-- if动态查询 -->
-    <select id="Login" resultType="com.cfxy.pojo.userInfo" parameterType="com.cfxy.pojo.userInfo">
+	<!-- if动态查询 -->
+	<select id="Login" resultType="com.cfxy.pojo.userInfo" parameterType="com.cfxy.pojo.userInfo">
 		select * from userinfo where userName = #{userName} and userPwd = #{userPwd}
 	</select>
-    <!--根据用户id查询用户信息-->
-    <select id="selectUserInfo" resultType="com.cfxy.pojo.userInfo" parameterType="Integer">
+	<!--根据用户id查询用户信息-->
+	<select id="selectUserInfo" resultType="com.cfxy.pojo.userInfo" parameterType="Integer">
         select * from userinfo where id = #{id}
     </select>
-    <!--根据用户id查询用户信息-->
-    <select id="getUserInfo" resultType="com.cfxy.pojo.userInfo" parameterType="Integer">
+	<!--根据用户id查询用户信息-->
+	<select id="getUserInfo" resultType="com.cfxy.pojo.userInfo" parameterType="Integer">
         select * from userinfo where id = #{id}
     </select>
-    <!--修改用户信息-->
-    <update id="updateUserInfo" parameterType="com.cfxy.pojo.userInfo">
+	<!--修改用户信息-->
+	<update id="updateUserInfo" parameterType="com.cfxy.pojo.userInfo">
 		update userinfo set userName=#{userName},userPwd=#{userPwd} where id=#{id}
 	</update>
-    <!--上传用户信息-->
-    <insert id="uploadUserInfo" parameterType="com.cfxy.pojo.userInfo">
+	<!--上传用户信息-->
+	<insert id="uploadUserInfo" parameterType="com.cfxy.pojo.userInfo">
 	    INSERT INTO  userinfo  VALUES  (null,#{userName},#{userPwd},#{img})
 	</insert>
-    <!--检查重名-->
-    <select id="checkUserName" resultType="com.cfxy.pojo.userInfo" parameterType="String">
+	<!--检查重名-->
+	<select id="checkUserName" resultType="com.cfxy.pojo.userInfo" parameterType="String">
         select * from userinfo where userName = #{userName}
     </select>
-    <!--帖子发布功能实现-->
-    <insert id="addPostInfo">
-	    INSERT INTO  postinfo (id,title,htmlContent,markdownContent,createUserId) VALUES  (null,#{title},#{htmlContent},#{markdownContent},#{createUserId})
+	<!--帖子发布功能实现-->
+	<insert id="addPostInfo">
+	    INSERT INTO  postinfo (id,title,htmlContent,markdownContent,createUserId,collectNumber,likeNumber) VALUES  (null,#{title},#{htmlContent},#{markdownContent},#{createUserId},0,0)
 	</insert>
 
-    <!--查询帖子信息-->
-    <select id="queryPostInfo" resultType="com.cfxy.pojo.postInfo">
+	<!--查询帖子信息-->
+	<select id="queryPostInfo" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo where createUserId = #{createUserId}
     </select>
-    <!--查看帖子详细信息-->
-    <select id="PostDetailPage" resultType="com.cfxy.pojo.postInfo" parameterType="Integer">
+	<!--查看帖子详细信息-->
+	<select id="PostDetailPage" resultType="com.cfxy.pojo.postInfo" parameterType="Integer">
         select * from postinfo where id = #{id}
     </select>
-    <!--更新帖子信息-->
-    <update id="editPostInfo" parameterType="com.cfxy.pojo.postInfo">
+	<!--更新帖子信息-->
+	<update id="editPostInfo" parameterType="com.cfxy.pojo.postInfo">
         update postinfo set title=#{title},htmlContent=#{htmlContent},markdownContent=#{markdownContent} where id=#{id}
     </update>
 
-    <!--删除帖子信息-->
-    <delete id="delPostInfo" parameterType="Integer">
+
+	<!--删除帖子信息-->
+	<delete id="delPostInfo" parameterType="Integer">
         delete from postinfo where id=#{id}
     </delete>
 
-    <!--查询帖子喜欢数前8的帖子只显示前8-->
-    <select id="queryTop8" resultType="com.cfxy.pojo.postInfo">
+	<!--查询帖子喜欢数前8的帖子只显示前8-->
+	<select id="queryTop8" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo order by likeNumber desc limit 8
     </select>
-    <!--发帖-->
-    <insert id="collectPost">
+	<!--收藏帖子-->
+	<insert id="collectPost">
         insert into collectInfo (userId,postId,collectStatus)values (#{userId},#{postId},#{collectStatus})
     </insert>
-    <!--根据用户id和帖子id判断用户是否收藏过该帖子-->
-    <select id="judgePost" resultType="com.cfxy.pojo.collectInfo" parameterType="Integer">
+
+	<!--根据用户id和帖子id判断用户是否收藏过该帖子-->
+	<select id="judgePost" resultType="com.cfxy.pojo.collectInfo" parameterType="Integer">
         select * from collectinfo where userId=#{userId} and postId=#{postId}
     </select>
-    <!--根据用户userId查询收藏的帖子信息-->
-    <select id="queryCollectInfo" resultType="com.cfxy.pojo.postInfo">
+	<!--根据用户userId查询收藏的帖子信息-->
+	<select id="queryCollectInfo" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo where id = ANY(select postId from collectinfo where userId = #{userId})
     </select>
 
-    <!--根据userId和postId删除对应的收藏信息-->
-    <delete id="delCollectInfo">
+	<!--根据userId和postId删除对应的收藏信息-->
+	<delete id="delCollectInfo">
         delete from collectInfo where userId = #{userId} and postId = #{postId}
     </delete>
 
-    <!--根据创建帖子的createUserId查询作者名-->
-    <select id="queryUserNameByCreateUserId" resultType="java.lang.String">
+	<!--根据创建帖子的createUserId查询作者名-->
+	<select id="queryUserNameByCreateUserId" resultType="java.lang.String">
         select userName from userinfo where id=#{createUserId}
     </select>
-    <!--帖子模糊查询-->
-    <select id="FuzzyQueryPostInfo" resultType="com.cfxy.pojo.postInfo">
+	<!--帖子模糊查询-->
+	<select id="FuzzyQueryPostInfo" resultType="com.cfxy.pojo.postInfo">
         select * from postinfo where title like '%${title}%'
     </select>
 
-    <!--更新帖子状态-->
-    <!--<update id="updateCollectStatus" >-->
-    <!--    update collectinfo set collectStatus=#{collectStatus} where userId=#{userId} and postId=#{postId}-->
-    <!--</update>-->
+	<!--点赞帖子-->
+	<insert id="likePost">
+        insert into likeinfo (userId,postId,likeStatus)values (#{userId},#{postId},#{likeStatus})
+    </insert>
+	<!--加载点赞状态-->
+	<select id="loadLikeStatus" resultType="java.lang.Boolean">
+        select likeStatus from likeinfo where userId = #{userId} and postId = #{postId}
+    </select>
+	<!--根据userId和postId删除对应的点赞信息-->
+	<delete id="delLikeInfo">
+        delete from likeinfo where userId = #{userId} and postId = #{postId}
+    </delete>
+	<!--帖子收藏数加一-->
+	<update id="updatePostCollectNumberAddOne">
+        update postinfo set collectNumber=collectNumber+1 where id = #{id}
+    </update>
+
+	<!--帖子收藏数减一-->
+	<update id="updatePostCollectNumberMinOne">
+        update postinfo set collectNumber = collectNumber-1 where id = #{id}
+    </update>
+	<!--帖子点赞数加一-->
+	<update id="updatePostLikeNumberAddOne">
+        update postinfo set likeNumber = likeNumber+1 where id = #{id}
+    </update>
+
+	<!--帖子点赞数减一-->
+	<update id="updatePostLikeNumberMinOne">
+        update postinfo set likeNumber = likeNumber-1 where id = #{id}
+    </update>
 </mapper>

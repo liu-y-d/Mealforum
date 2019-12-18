@@ -68,7 +68,7 @@
                                     onclick="collectFunction(${postInfo.id},${userInfo.id})">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 收藏
                             </button>
-                            <button id="like" type="button" class="btn btn-default btn-lg" onclick="likeFunction(this)">
+                            <button id="like" type="button" class="btn btn-default btn-lg" onclick="likeFunction(${postInfo.id},${userInfo.id})">
                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 点赞
                             </button>
                         </p>
@@ -100,8 +100,22 @@
 
     }
 
-    function likeFunction() {
-
+    function likeFunction(postId,userId) {
+        //将postId和userId通过Ajax传输到后台判断collectInfo表里的likeStatus状态
+        //如果状态为0则说明为点赞，继续实现点赞功能即可，如果为1则实现取消点赞功能
+        $.ajax({
+            url:'/user/loadLikeStatus',
+            data:{
+                userId : userId,
+                postId:postId,
+                likeStatus:true
+            },
+            dataType:"JSON",
+            type: "POST",
+            success:function (data) {
+                alert(data);
+            }
+        });
     }
 </script>
 <script src="../../static/bootstrap-3.3.7-dist/js/jquery-3.4.1.min.js"></script>

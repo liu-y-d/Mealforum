@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -215,12 +216,11 @@ public class userInfoController {
 		collectInfo collectInfo = userInfoService.judgePost(userId, postId);
 		String message;
 		if (collectInfo != null) {
-//            userInfoService.updateCollectStatus(userId,postId,false);
 			message = "您收藏过该帖子,请勿重复操作";
 			return JSON.toJSONString(message);
 		} else {
 			int i = userInfoService.collectPost(userId, postId, collectStatus);
-			userInfoService.judgePost(userId, postId);
+			userInfoService.updatePostCollectNumberAddOne(postId);
 			message = "收藏成功！";
 		}
 		return JSON.toJSONString(message);
@@ -240,6 +240,7 @@ public class userInfoController {
 	@ResponseBody
 	public void delCollectInfo(Integer postId, Integer userId) {
 		userInfoService.delCollectInfo(userId, postId);
+		userInfoService.updatePostCollectNumberMinOne(postId);
 	}
 
 	//帖子模糊查询
@@ -249,6 +250,24 @@ public class userInfoController {
         model.addAttribute("postInfos",postInfos);
         return "post/queryResultPage";
     }
+    //页面加载点赞状态
+	@RequestMapping(value = "loadLikeStatus" ,method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String loadLikeStatus(Integer postId, Integer userId,Boolean likeStatus){
+		Boolean resultLikeStatus = userInfoService.loadLikeStatus(userId, postId);
+		String message;
+		if (resultLikeStatus != null) {
+			message = "取消点赞";
+			userInfoService.delLikeInfo(userId,postId);
+			userInfoService.updatePostLikeNumberMinOne(postId);
+			return JSON.toJSONString(message);
+		} else {
+			userInfoService.likePost(userId, postId, likeStatus);
+			userInfoService.updatePostLikeNumberAddOne(postId);
+			message = "点赞成功！";
+		}
+		return JSON.toJSONString(message);
+	}
 }
 
 
