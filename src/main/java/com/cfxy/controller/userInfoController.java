@@ -2,6 +2,7 @@ package com.cfxy.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cfxy.pojo.collectInfo;
+import com.cfxy.pojo.commentInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import com.cfxy.service.userInfoService;
@@ -267,6 +268,21 @@ public class userInfoController {
 			message = "点赞成功！";
 		}
 		return JSON.toJSONString(message);
+	}
+	//评论功能实现
+	@RequestMapping(value = "comment" , method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String comment(Integer userId,Integer postId,String comments,String commentTime){
+		commentInfo comment = userInfoService.comment(userId, postId, comments, commentTime);
+		return JSON.toJSONString(comment);
+	}
+	//获取所有评论条数
+	//评论功能实现
+	@RequestMapping(value = "queryComment" , method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String queryComment(Integer postId){
+		List<commentInfo> comments = userInfoService.queryComment(postId);
+		return JSON.toJSONString(comments);
 	}
 }
 

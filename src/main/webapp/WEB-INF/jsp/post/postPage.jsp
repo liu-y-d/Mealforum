@@ -101,7 +101,7 @@
             if ($(this).val() == "") {
                 $(this).parent("label").removeClass("active");
             }
-        })
+        });
         testEditor = editormd("test-editormd", {
             placeholder: "欢迎您使用 “膳食·家” 论坛",
             /*上面div的值*/

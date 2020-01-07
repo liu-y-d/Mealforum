@@ -1,6 +1,7 @@
 package com.cfxy.dao;
 
 import com.cfxy.pojo.collectInfo;
+import com.cfxy.pojo.commentInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import org.apache.ibatis.annotations.Param;
@@ -73,8 +74,9 @@ public interface userInfoDao {
 	int updatePostLikeNumberAddOne(@Param("id")Integer id);
 	//帖子点赞数减一
 	int updatePostLikeNumberMinOne(@Param("id")Integer id);
-
-
-
+	//发表评论
+	int comment(@Param("userId")Integer userId,@Param("postId")Integer postId,@Param("comments")String comments,@Param("commentTime")String commentTime);
+	//根据帖子id获取帖子所有评论信息
+	List<commentInfo> queryComment(@Param("postId")Integer postId);
 
 }

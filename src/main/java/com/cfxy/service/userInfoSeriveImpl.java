@@ -2,6 +2,7 @@ package com.cfxy.service;
 
 import com.cfxy.dao.userInfoDao;
 import com.cfxy.pojo.collectInfo;
+import com.cfxy.pojo.commentInfo;
 import com.cfxy.pojo.postInfo;
 import com.cfxy.pojo.userInfo;
 import org.omg.PortableInterceptor.INACTIVE;
@@ -124,7 +125,15 @@ public class userInfoSeriveImpl implements userInfoService{
 
     public int updatePostLikeNumberMinOne(Integer id) {
         return userInfoDao.updatePostLikeNumberMinOne(id);
+    }
 
+    public commentInfo comment(Integer userId, Integer postId, String comments, String commentTime) {
+        Integer commentId = userInfoDao.comment(userId, postId, comments, commentTime);
+        return new commentInfo(commentId,userId,postId,comments,commentTime);
+    }
+
+    public List<commentInfo> queryComment(Integer postId) {
+        return userInfoDao.queryComment(postId);
     }
 
 

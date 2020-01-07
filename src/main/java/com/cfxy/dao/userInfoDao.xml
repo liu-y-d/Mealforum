@@ -111,4 +111,15 @@
 	<update id="updatePostLikeNumberMinOne">
         update postinfo set likeNumber = likeNumber-1 where id = #{id}
     </update>
+	<!--发表评论-->
+	<insert id="comment" parameterType="com.cfxy.pojo.commentInfo" >
+		<selectKey keyProperty="commentId" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into commentinfo (userId,postId,comments,commentTime) values ( #{userId},#{postId},#{comments},#{commentTime})
+	</insert>
+	<!--获取帖子的评论信息-->
+	<select id="queryComment" resultType="com.cfxy.pojo.commentInfo">
+		select c.commentId,(select userName from userinfo where id = c.userId) userName,c.postId,c.comments,c.commentTime,c.userId  from commentinfo c where postId = #{postId}
+	</select>
 </mapper>

@@ -26,7 +26,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">膳食·家论坛</a>
+            <a class="navbar-brand" href="/user/toMain">膳食·家论坛</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
