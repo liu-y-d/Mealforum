@@ -284,6 +284,7 @@ public class userInfoController {
 		List<commentInfo> comments = userInfoService.queryComment(postId);
 		return JSON.toJSONString(comments);
 	}
+
 }
 
 

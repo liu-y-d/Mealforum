@@ -90,7 +90,7 @@
         </div>
         <div class="commentright">
             <div class="coments">
-                <textarea class="lyd_class" id="comment"></textarea>
+                <textarea class="lyd_class" id="comment" ></textarea>
             </div>
             <div class="commentButton">
                 <input type="button" class="btn btn-default" onclick="comment()" value="发表评论"
@@ -168,7 +168,7 @@
             dataType: "JSON",
             type: "POST",
             success: function (data) {
-                console.log(data);
+                window.location.reload();
 
             }
         });
